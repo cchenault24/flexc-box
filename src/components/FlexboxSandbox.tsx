@@ -1,20 +1,16 @@
-import { useState } from "react";
-import {
-  Container,
-  Box,
-  Paper,
-  Typography,
-  SelectChangeEvent,
-} from "@mui/material";
+import React, { useState } from "react";
+import { Container, Box, Paper, Typography } from "@mui/material";
 import ContextMenu from "./ContextMenu";
-import DropdownField from "./DropdownField";
-import NumberInputField from "./NumberInputField";
 import FlexboxInputs from "./FlexboxInputs";
+import PresetButtons from "./PresetButtons";
+import { COLORS } from "../colors";
 
 interface ContextMenuPosition {
   mouseX: number;
   mouseY: number;
 }
+
+const ELEMENT_DEFAULT_SIZE = 100;
 
 const FlexboxSandbox = () => {
   const [display, setDisplay] = useState("flex");
@@ -26,12 +22,14 @@ const FlexboxSandbox = () => {
   const [numElements, setNumElements] = useState(3);
   const [selectedElement, setSelectedElement] = useState<number | null>(null);
   const [elementStyles, setElementStyles] = useState(
-    Array(Number(numElements)).fill({
-      width: 50,
-      height: 50,
-      backgroundColor: "#AC782C",
-      order: 0,
-    })
+    Array(Number(numElements))
+      .fill(null)
+      .map((_, index) => ({
+        width: ELEMENT_DEFAULT_SIZE,
+        height: ELEMENT_DEFAULT_SIZE,
+        backgroundColor: COLORS[index % COLORS.length],
+        order: 0,
+      }))
   );
   const [contextMenu, setContextMenu] = useState<ContextMenuPosition | null>(
     null
@@ -42,8 +40,8 @@ const FlexboxSandbox = () => {
       key={i}
       onContextMenu={(e) => handleContextMenu(e, i)}
       sx={{
-        width: elementStyles[i]?.width || 50,
-        height: elementStyles[i]?.height || 50,
+        width: elementStyles[i]?.width || ELEMENT_DEFAULT_SIZE,
+        height: elementStyles[i]?.height || ELEMENT_DEFAULT_SIZE,
         bgcolor: elementStyles[i]?.backgroundColor || "#AC782C",
         order: elementStyles[i]?.order || 0,
         m: 1,
@@ -80,6 +78,22 @@ const FlexboxSandbox = () => {
     setElementStyles(updatedStyles);
   };
 
+  const applyPreset = (config: {
+    display: string;
+    flexDirection: string;
+    flexWrap: string;
+    justifyContent: string;
+    alignItems: string;
+    alignContent: string;
+  }) => {
+    setDisplay(config.display);
+    setFlexDirection(config.flexDirection);
+    setFlexWrap(config.flexWrap);
+    setJustifyContent(config.justifyContent);
+    setAlignItems(config.alignItems);
+    setAlignContent(config.alignContent);
+  };
+
   return (
     <Container
       sx={{
@@ -93,10 +107,16 @@ const FlexboxSandbox = () => {
         variant="h4"
         gutterBottom
         align="center"
-        sx={{ fontWeight: "bold", color: "text.primary", mb: 2 }}
+        sx={{
+          fontWeight: "bold",
+          color: "text.primary",
+          mb: 4,
+          textShadow: "1px 1px 2px rgba(0, 0, 0, 0.3)",
+        }}
       >
         Flexbox Sandbox
       </Typography>
+      <PresetButtons onPresetSelect={applyPreset} />
       <Paper
         sx={{
           p: 2,
@@ -107,7 +127,11 @@ const FlexboxSandbox = () => {
           alignItems,
           alignContent,
           width: "60vw",
+          minWidth: "700px",
+          maxWidth: "100%",
           height: "60vh",
+          minHeight: "700px",
+          maxHeight: "100%",
           bgcolor: "background.paper",
           borderRadius: 2,
           boxShadow: 3,
