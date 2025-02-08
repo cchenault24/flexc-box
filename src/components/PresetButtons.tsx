@@ -91,7 +91,7 @@ interface PresetButtonsProps {
 const PresetButtons: React.FC<PresetButtonsProps> = ({ onPresetSelect }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const theme = useTheme();
-  const isNarrow = useMediaQuery(theme.breakpoints.down("lg"));
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const handleMenuOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -104,14 +104,16 @@ const PresetButtons: React.FC<PresetButtonsProps> = ({ onPresetSelect }) => {
   return (
     <Box
       sx={{
-        mb: 2,
+        mb: { xs: 1.5, sm: 2 },
         display: "flex",
-        gap: 2,
+        gap: { xs: 1, sm: 2 },
         flexWrap: "wrap",
         justifyContent: "center",
+        width: "100%",
+        px: { xs: 1, sm: 2 },
       }}
     >
-      {isNarrow ? (
+      {isMobile ? (
         <>
           <Button
             variant="contained"
@@ -119,9 +121,11 @@ const PresetButtons: React.FC<PresetButtonsProps> = ({ onPresetSelect }) => {
             sx={{
               backgroundColor: "#AC782C",
               color: "white",
-              borderRadius: "20px",
-              padding: "8px 16px",
+              borderRadius: { xs: "16px", sm: "20px" },
+              padding: { xs: "6px 12px", sm: "8px 16px" },
+              fontSize: { xs: "0.875rem", sm: "1rem" },
               fontWeight: "bold",
+              minWidth: { xs: "120px", sm: "auto" },
               "&:hover": {
                 backgroundColor: "#F28C05",
               },
@@ -134,6 +138,12 @@ const PresetButtons: React.FC<PresetButtonsProps> = ({ onPresetSelect }) => {
             anchorEl={anchorEl}
             open={Boolean(anchorEl)}
             onClose={handleMenuClose}
+            PaperProps={{
+              sx: {
+                maxHeight: "70vh",
+                width: { xs: "200px", sm: "250px" },
+              },
+            }}
           >
             {presets.map((preset) => (
               <MenuItem

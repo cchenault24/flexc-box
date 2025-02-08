@@ -59,7 +59,7 @@ const ContextMenu = ({
       open={contextMenu !== null}
       onClose={() => {
         handleClose();
-        setActiveInput(null); // Ensure `activeInput` is reset on menu close
+        setActiveInput(null);
       }}
       anchorReference="anchorPosition"
       anchorPosition={
@@ -69,7 +69,7 @@ const ContextMenu = ({
       }
       sx={{
         "& .MuiMenu-paper": {
-          p: 0, // Remove padding from the Menu
+          p: 0,
           boxShadow: "0px 4px 10px rgba(0,0,0,0.2)",
           borderRadius: "8px",
         },
@@ -115,7 +115,7 @@ const ContextMenu = ({
             flexDirection: "column",
             p: 2,
             gap: 1.5,
-            borderTop: "1px solid #e0e0e0", // Divider line
+            borderTop: "1px solid #e0e0e0",
             backgroundColor: "#ffffff",
             width: "100%",
           }}

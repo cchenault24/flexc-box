@@ -41,33 +41,75 @@ const NumberInputField: React.FC<NumberInputFieldProps> = ({
       <TextField
         type="number"
         label={
-          <>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: { xs: 0.5, sm: 1 },
+              fontSize: { xs: "0.8rem", sm: "1rem" },
+            }}
+          >
             {label}
             {tooltip && (
               <Tooltip title={tooltip} arrow>
-                <IconButton size="small">
+                <IconButton
+                  size="small"
+                  sx={{
+                    padding: { xs: "2px", sm: "4px" },
+                    "& .MuiSvgIcon-root": {
+                      fontSize: { xs: "0.9rem", sm: "1.1rem" },
+                    },
+                  }}
+                >
                   <InfoIcon fontSize="small" />
                 </IconButton>
               </Tooltip>
             )}
-          </>
+          </Box>
         }
         value={value}
         onChange={handleChange}
         inputProps={{
           style: { textAlign: "center" },
+          sx: {
+            py: { xs: 1, sm: 1.5 },
+            fontSize: { xs: "0.875rem", sm: "1rem" },
+          },
         }}
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
-              <IconButton onClick={handleDecrement}>-</IconButton>
+              <IconButton
+                onClick={handleDecrement}
+                sx={{
+                  padding: { xs: "4px", sm: "8px" },
+                }}
+              >
+                -
+              </IconButton>
             </InputAdornment>
           ),
           endAdornment: (
             <InputAdornment position="end">
-              <IconButton onClick={handleIncrement}>+</IconButton>
+              <IconButton
+                onClick={handleIncrement}
+                sx={{
+                  padding: { xs: "4px", sm: "8px" },
+                }}
+              >
+                +
+              </IconButton>
             </InputAdornment>
           ),
+        }}
+        sx={{
+          "& .MuiInputLabel-root": {
+            fontSize: { xs: "0.875rem", sm: "1rem" },
+            transform: {
+              xs: "translate(14px, -6px) scale(0.75)",
+              sm: "translate(14px, -9px) scale(0.75)",
+            },
+          },
         }}
       />
     </Box>

@@ -10,7 +10,10 @@ interface ContextMenuPosition {
   mouseY: number;
 }
 
-const ELEMENT_DEFAULT_SIZE = 100;
+const ELEMENT_DEFAULT_SIZE = {
+  xs: 60,
+  sm: 100,
+};
 
 const FlexboxSandbox = () => {
   const [display, setDisplay] = useState("flex");
@@ -25,8 +28,8 @@ const FlexboxSandbox = () => {
     Array(Number(numElements))
       .fill(null)
       .map((_, index) => ({
-        width: ELEMENT_DEFAULT_SIZE,
-        height: ELEMENT_DEFAULT_SIZE,
+        width: ELEMENT_DEFAULT_SIZE.sm,
+        height: ELEMENT_DEFAULT_SIZE.sm,
         backgroundColor: COLORS[index % COLORS.length],
         order: 0,
       }))
@@ -40,11 +43,17 @@ const FlexboxSandbox = () => {
       key={i}
       onContextMenu={(e) => handleContextMenu(e, i)}
       sx={{
-        width: elementStyles[i]?.width || ELEMENT_DEFAULT_SIZE,
-        height: elementStyles[i]?.height || ELEMENT_DEFAULT_SIZE,
+        width: elementStyles[i]?.width || {
+          xs: ELEMENT_DEFAULT_SIZE.xs,
+          sm: ELEMENT_DEFAULT_SIZE.sm,
+        },
+        height: elementStyles[i]?.height || {
+          xs: ELEMENT_DEFAULT_SIZE.xs,
+          sm: ELEMENT_DEFAULT_SIZE.sm,
+        },
         bgcolor: elementStyles[i]?.backgroundColor || "#AC782C",
         order: elementStyles[i]?.order || 0,
-        m: 1,
+        m: { xs: 0.5, sm: 1 },
         borderRadius: "4px",
         cursor: "pointer",
         border: selectedElement === i ? "2px solid #F28C05" : "none",
@@ -97,10 +106,12 @@ const FlexboxSandbox = () => {
   return (
     <Container
       sx={{
-        py: 4,
+        py: { xs: 2, sm: 4 },
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
+        maxWidth: "100%",
+        px: { xs: 1, sm: 2 },
       }}
     >
       <Typography
@@ -110,7 +121,8 @@ const FlexboxSandbox = () => {
         sx={{
           fontWeight: "bold",
           color: "text.primary",
-          mb: 4,
+          mb: { xs: 2, sm: 4 },
+          fontSize: { xs: "1.75rem", sm: "2.125rem" },
           textShadow: "1px 1px 2px rgba(0, 0, 0, 0.3)",
         }}
       >
@@ -119,23 +131,24 @@ const FlexboxSandbox = () => {
       <PresetButtons onPresetSelect={applyPreset} />
       <Paper
         sx={{
-          p: 2,
+          p: { xs: 1, sm: 2 },
           display,
           flexDirection,
           flexWrap,
           justifyContent,
           alignItems,
           alignContent,
-          width: "60vw",
-          minWidth: "700px",
+          width: "100%",
+          minWidth: { xs: "100%", sm: "600px" },
           maxWidth: "100%",
-          height: "60vh",
-          minHeight: "500px",
+          height: { xs: "40vh", sm: "60vh" },
+          minHeight: { xs: "300px", sm: "500px" },
           maxHeight: "100%",
           bgcolor: "background.paper",
           borderRadius: 2,
           boxShadow: 3,
           position: "relative",
+          overflow: "auto",
         }}
       >
         {elements}

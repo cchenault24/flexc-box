@@ -38,18 +38,29 @@ const FlexboxInputs: React.FC<FlexboxInputsProps> = ({
 }) => {
   return (
     <Box
-      mt={4}
+      mt={{ xs: 2, sm: 4 }}
       width="100%"
+      maxWidth={{ xs: "100%", sm: "95%", md: "90%" }}
+      mx="auto"
       display="grid"
-      gap={2}
+      gap={{ xs: 1.5, sm: 2 }}
       sx={{
         gridTemplateColumns: {
           xs: "1fr",
           sm: "repeat(2, 1fr)",
           md: "repeat(3, 1fr)",
-          xl: "repeat(6, 1fr)",
+          lg: "repeat(3, 1fr)",
         },
-        marginX: 4, // Adds space to the left and right
+        paddingX: { xs: 1, sm: 2, md: 3 },
+        "& .MuiFormControl-root": {
+          minWidth: { xs: "100%", sm: "auto" },
+        },
+        "& .MuiInputLabel-root": {
+          fontSize: { xs: "0.875rem", sm: "1rem" },
+        },
+        "& .MuiSelect-select": {
+          py: { xs: 1, sm: 1.5 },
+        },
       }}
     >
       <DropdownField
