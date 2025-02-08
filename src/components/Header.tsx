@@ -6,8 +6,7 @@ const Header = () => (
     position="static"
     sx={{
       bgcolor: "primary.main",
-      boxShadow: 2,
-      py: 2,
+      boxShadow: 1,
     }}
   >
     <Toolbar sx={{ justifyContent: "center", alignItems: "center" }}>

@@ -130,7 +130,7 @@ const FlexboxSandbox = () => {
           minWidth: "700px",
           maxWidth: "100%",
           height: "60vh",
-          minHeight: "700px",
+          minHeight: "500px",
           maxHeight: "100%",
           bgcolor: "background.paper",
           borderRadius: 2,

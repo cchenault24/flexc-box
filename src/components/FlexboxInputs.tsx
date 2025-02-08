@@ -39,26 +39,25 @@ const FlexboxInputs: React.FC<FlexboxInputsProps> = ({
   return (
     <Box
       mt={4}
-      width="60vw"
-      maxWidth="100%"
-      display="flex"
-      flexWrap={{ xs: "wrap", xl: "nowrap" }}
+      width="100%"
+      display="grid"
       gap={2}
       sx={{
-        justifyContent: "flex-start",
-        "@media (max-width: 768px)": {
-          justifyContent: "center",
+        gridTemplateColumns: {
+          xs: "1fr",
+          sm: "repeat(2, 1fr)",
+          md: "repeat(3, 1fr)",
+          xl: "repeat(6, 1fr)",
         },
+        marginX: 4, // Adds space to the left and right
       }}
     >
       <DropdownField
         label="Display"
         value={display}
         onChange={(e: SelectChangeEvent<string>) => setDisplay(e.target.value)}
-        options={[
-          { value: "flex", label: "Flex" },
-          { value: "inline-flex", label: "Inline Flex" },
-        ]}
+        options={["flex", "inline-flex"]}
+        tooltip="Defines the display type for the container. Use 'flex' to enable Flexbox."
       />
       <DropdownField
         label="Flex Direction"
@@ -66,22 +65,15 @@ const FlexboxInputs: React.FC<FlexboxInputsProps> = ({
         onChange={(e: SelectChangeEvent<string>) =>
           setFlexDirection(e.target.value)
         }
-        options={[
-          { value: "row", label: "Row" },
-          { value: "row-reverse", label: "Row Reverse" },
-          { value: "column", label: "Column" },
-          { value: "column-reverse", label: "Column Reverse" },
-        ]}
+        options={["row", "row-reverse", "column", "column-reverse"]}
+        tooltip="Specifies the direction of the main axis (e.g., row, column)."
       />
       <DropdownField
         label="Flex Wrap"
         value={flexWrap}
         onChange={(e: SelectChangeEvent<string>) => setFlexWrap(e.target.value)}
-        options={[
-          { value: "nowrap", label: "No Wrap" },
-          { value: "wrap", label: "Wrap" },
-          { value: "wrap-reverse", label: "Wrap Reverse" },
-        ]}
+        options={["nowrap", "wrap", "wrap-reverse"]}
+        tooltip="Controls whether items should wrap onto multiple lines."
       />
       <DropdownField
         label="Justify Content"
@@ -90,13 +82,14 @@ const FlexboxInputs: React.FC<FlexboxInputsProps> = ({
           setJustifyContent(e.target.value)
         }
         options={[
-          { value: "flex-start", label: "Flex Start" },
-          { value: "center", label: "Center" },
-          { value: "flex-end", label: "Flex End" },
-          { value: "space-between", label: "Space Between" },
-          { value: "space-around", label: "Space Around" },
-          { value: "space-evenly", label: "Space Evenly" },
+          "flex-start",
+          "center",
+          "flex-end",
+          "space-between",
+          "space-around",
+          "space-evenly",
         ]}
+        tooltip="Aligns items along the main axis (e.g., start, center, space-between)."
       />
       <DropdownField
         label="Align Items"
@@ -104,13 +97,8 @@ const FlexboxInputs: React.FC<FlexboxInputsProps> = ({
         onChange={(e: SelectChangeEvent<string>) =>
           setAlignItems(e.target.value)
         }
-        options={[
-          { value: "stretch", label: "Stretch" },
-          { value: "flex-start", label: "Flex Start" },
-          { value: "center", label: "Center" },
-          { value: "flex-end", label: "Flex End" },
-          { value: "baseline", label: "Baseline" },
-        ]}
+        options={["stretch", "flex-start", "center", "flex-end", "baseline"]}
+        tooltip="Aligns items along the cross axis (e.g., stretch, center, flex-start)."
       />
       <DropdownField
         label="Align Content"
@@ -119,18 +107,20 @@ const FlexboxInputs: React.FC<FlexboxInputsProps> = ({
           setAlignContent(e.target.value)
         }
         options={[
-          { value: "stretch", label: "Stretch" },
-          { value: "flex-start", label: "Flex Start" },
-          { value: "center", label: "Center" },
-          { value: "flex-end", label: "Flex End" },
-          { value: "space-between", label: "Space Between" },
-          { value: "space-around", label: "Space Around" },
+          "stretch",
+          "flex-start",
+          "center",
+          "flex-end",
+          "space-between",
+          "space-around",
         ]}
+        tooltip="Aligns multiple lines along the cross axis when wrapping is enabled."
       />
       <NumberInputField
         label="Number of Items"
         value={numElements}
-        onChange={(newValue: number) => setNumElements(newValue)}
+        onChange={setNumElements}
+        tooltip="Specifies the number of child elements in the flex container."
       />
     </Box>
   );

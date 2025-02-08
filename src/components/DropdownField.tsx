@@ -1,37 +1,59 @@
+import React from "react";
 import {
   FormControl,
   InputLabel,
   Select,
   MenuItem,
   SelectChangeEvent,
+  Tooltip,
+  IconButton,
+  Box,
 } from "@mui/material";
-import { Box } from "@mui/system";
+import InfoIcon from "@mui/icons-material/Info";
 
 interface DropdownFieldProps {
   label: string;
   value: string;
   onChange: (event: SelectChangeEvent<string>) => void;
-  options: { value: string; label: string }[];
+  options: string[];
+  tooltip?: string;
 }
 
-const DropdownField = ({
+const DropdownField: React.FC<DropdownFieldProps> = ({
   label,
   value,
   onChange,
   options,
-}: DropdownFieldProps) => (
-  <Box sx={{ flex: "1 1 300px" }}>
-    <FormControl fullWidth variant="outlined" sx={{ mb: 2 }}>
-      <InputLabel shrink>{label}</InputLabel>
-      <Select value={value} onChange={onChange} label={label}>
-        {options.map((option) => (
-          <MenuItem key={option.value} value={option.value}>
-            {option.label}
-          </MenuItem>
-        ))}
-      </Select>
-    </FormControl>
-  </Box>
-);
+  tooltip,
+}) => {
+  const FieldLabelContent = (
+    <Box sx={{ display: "flex", alignItems: "center" }}>
+      <Box component="span" sx={{ marginRight: 1 }}>
+        {label}
+      </Box>
+      {tooltip && (
+        <Tooltip title={tooltip} arrow>
+          <IconButton size="small" sx={{ padding: 0 }}>
+            <InfoIcon fontSize="small" />
+          </IconButton>
+        </Tooltip>
+      )}
+    </Box>
+  );
+  return (
+    <Box sx={{ flex: "1 1" }}>
+      <FormControl fullWidth>
+        <InputLabel shrink>{FieldLabelContent}</InputLabel>
+        <Select value={value} onChange={onChange} label={FieldLabelContent}>
+          {options.map((option) => (
+            <MenuItem key={option} value={option}>
+              {option}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+    </Box>
+  );
+};
 
 export default DropdownField;
